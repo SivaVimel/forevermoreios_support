@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Forevermore: Wedding Countdown Support</title>
+<meta name="description" content="Help and answers for Forevermore: Wedding Countdown.">
+<meta name="theme-color" content="#FBFAF8">
+<meta name="color-scheme" content="light only">
+<!-- Replace YOUR_APP_ID with the app's Apple ID from App Store Connect (App Information), here and in the App Store links. -->
+<meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 112 72%27%3E%3Ccircle cx=%2738%27 cy=%2736%27 r=%2731%27 fill=%27none%27 stroke=%27%23B8975A%27 stroke-width=%277%27/%3E%3Ccircle cx=%2774%27 cy=%2736%27 r=%2731%27 fill=%27none%27 stroke=%27%23B8975A%27 stroke-width=%277%27/%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #FBFAF8;
+    --mesh-1: #FFFFFF;
+    --mesh-2: #F2EEE9;
+    --mesh-3: #EDE8E2;
+    --text: #1D1D1F;
+    --secondary: rgba(29, 29, 31, 0.56);
+    --tertiary: rgba(29, 29, 31, 0.36);
+    --panel: rgba(255, 255, 255, 0.62);
+    --panel-border: rgba(29, 29, 31, 0.06);
+    --hairline: rgba(29, 29, 31, 0.10);
+    --gold: #B8975A;
+    --gold-light: #E9D7AA;
+    --gold-deep: #8F7340;
+    --button: #1D1D1F;
+    --button-text: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(60% 50% at 15% 10%, var(--mesh-1) 0%, transparent 70%),
+      radial-gradient(55% 45% at 90% 20%, var(--mesh-2) 0%, transparent 70%),
+      radial-gradient(70% 60% at 50% 100%, var(--mesh-3) 0%, transparent 70%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header { text-align: center; padding: 88px 0 48px; }
+  .rings { width: 84px; height: 54px; margin: 0 auto 26px; display: block; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary); margin-bottom: 14px; }
+  h1 { font-size: clamp(40px, 7vw, 60px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; }
+  .lede { max-width: 520px; margin: 18px auto 0; font-size: 19px; color: var(--secondary); }
+
+  .panel {
+    border-radius: 26px; background: var(--panel); border: 1px solid var(--panel-border);
+    -webkit-backdrop-filter: blur(28px) saturate(1.4); backdrop-filter: blur(28px) saturate(1.4);
+  }
+  .contact { padding: 32px; text-align: center; }
+  .contact h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .contact p { margin-top: 6px; color: var(--secondary); }
+  .mail {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 14px 26px; border-radius: 999px;
+    background: var(--button); color: var(--button-text); text-decoration: none; font-weight: 600; font-size: 16px;
+    word-break: break-all;
+  }
+  .mail svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .reply { display: block; margin-top: 12px; font-size: 13px; color: var(--tertiary); }
+
+  h2.group { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary); margin: 52px 0 12px 6px; }
+  .faq details { border-top: 1px solid var(--hairline); }
+  .faq details:first-child { border-top: 0; }
+  .faq summary {
+    list-style: none; cursor: pointer; padding: 20px 56px 20px 24px; position: relative;
+    font-size: 17px; font-weight: 600; letter-spacing: -0.005em;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: ""; position: absolute; right: 26px; top: 50%; width: 9px; height: 9px; margin-top: -7px;
+    border-right: 2px solid var(--tertiary); border-bottom: 2px solid var(--tertiary); transform: rotate(45deg);
+    transition: transform 0.25s ease, margin 0.25s ease;
+  }
+  .faq details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
+  .faq .answer { padding: 0 24px 22px; color: var(--secondary); font-size: 16px; }
+  .faq .answer p + p, .faq .answer ol { margin-top: 10px; }
+  .faq ol { padding-left: 20px; }
+  .faq li { margin-top: 4px; }
+  .faq b { color: var(--text); font-weight: 600; }
+
+  footer { text-align: center; padding: 64px 0 56px; color: var(--tertiary); font-size: 14px; }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <svg class="rings" viewBox="0 0 112 72" aria-hidden="true">
+        <defs>
+          <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#E9D7AA"/><stop offset="0.5" stop-color="#B8975A"/><stop offset="1" stop-color="#8F7340"/>
+          </linearGradient>
+        </defs>
+        <circle cx="38" cy="36" r="31" fill="none" stroke="url(#gold)" stroke-width="4"/>
+        <circle cx="74" cy="36" r="31" fill="none" stroke="url(#gold)" stroke-width="4"/>
+      </svg>
+      <p class="eyebrow">Forevermore: Wedding Countdown</p>
+      <h1>How can we help?</h1>
+      <p class="lede">Answers to common questions, and a direct line if you need anything else.</p>
+    </header>
+
+    <div class="panel contact">
+      <h2>Contact us</h2>
+      <p>Questions, feedback or a problem? Send an email and we'll get back to you.</p>
+      <a class="mail" href="mailto:sivavimelrajhen@gmail.com?subject=Forevermore%20Support">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg>
+        sivavimelrajhen@gmail.com
+      </a>
+      <span class="reply">Please include your iPhone model and iOS version.</span>
+    </div>
+
+    <h2 class="group">Lock Screen</h2>
+    <div class="panel faq">
+      <details>
+        <summary>How do I show the countdown on my Lock Screen?</summary>
+        <div class="answer">
+          <p>Open the app, scroll down and tap <b>Show on Lock Screen</b>, then lock your iPhone. The live countdown appears at the bottom of the Lock Screen.</p>
+          <p>You can change its style, size and alignment in <b>Settings › Style &amp; Layout</b>.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Why does the live countdown disappear after a few hours?</summary>
+        <div class="answer">
+          <p>iOS shows a Live Activity for up to 8 hours, then keeps it on the Lock Screen for up to 4 more before removing it. This is a system limit for every app.</p>
+          <p>That's why it's designed for the final day: with <b>Live Countdown on the Day</b> turned on, it starts when you open the app on the last day, and you'll get a reminder 8 hours before. Any other time, tap <b>Show on Lock Screen</b> again to restart it.</p>
+        </div>
+      </details>
+      <details>
+        <summary>The button says “Turn On Live Activities”.</summary>
+        <div class="answer">
+          <p>Live Activities were turned off for the app, usually by tapping <b>Don't Allow</b> on the Lock Screen. Tap the button to open Settings, turn on <b>Live Activities</b>, then come back to the app.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Why are the seconds hidden when my iPhone is dimmed?</summary>
+        <div class="answer">
+          <p>On iPhones with an always-on display, iOS pauses seconds while the screen is dimmed to save battery. The countdown shows days, hours and minutes in that state, and the seconds return as soon as you wake your iPhone.</p>
+        </div>
+      </details>
+      <details>
+        <summary>It says “Open the app to refresh”.</summary>
+        <div class="answer">
+          <p>The live countdown passed midnight and needs the app to update the day count. Open the app and it updates straight away.</p>
+        </div>
+      </details>
+    </div>
+
+    <h2 class="group">Widgets</h2>
+    <div class="panel faq">
+      <details>
+        <summary>How do I add a widget?</summary>
+        <div class="answer">
+          <ol>
+            <li><b>Home Screen:</b> touch and hold an empty area until the apps jiggle, tap <b>Edit</b> › <b>Add Widget</b>, search for <b>Forevermore</b>, and choose small, medium or large.</li>
+            <li><b>Lock Screen:</b> touch and hold the Lock Screen, tap <b>Customize</b> › <b>Lock Screen</b>, tap the widget area under the clock, and choose <b>Forevermore</b>.</li>
+          </ol>
+        </div>
+      </details>
+      <details>
+        <summary>Why doesn't my Lock Screen widget show my colours?</summary>
+        <div class="answer">
+          <p>iOS draws all Lock Screen widgets in its own single tint so they match the clock. Your colours and fonts appear on Home Screen widgets and on the live countdown.</p>
+        </div>
+      </details>
+      <details>
+        <summary>A widget isn't updating.</summary>
+        <div class="answer">
+          <p>Open the app once; widgets refresh whenever you change something. If it still looks wrong, remove the widget and add it again.</p>
+        </div>
+      </details>
+    </div>
+
+    <h2 class="group">Wallpaper</h2>
+    <div class="panel faq">
+      <details>
+        <summary>How do I change my wallpaper automatically on the day?</summary>
+        <div class="answer">
+          <p>Apple doesn't let apps change the wallpaper themselves, but the Shortcuts app can. You set it up once:</p>
+          <ol>
+            <li>In <b>Shortcuts</b>, open <b>Automation</b>, tap <b>+</b> and choose <b>Time of Day</b>.</li>
+            <li>Set your wedding time, choose <b>Daily</b> and <b>Run Immediately</b>, then tap <b>Next</b> and <b>New Blank Automation</b>.</li>
+            <li>Add <b>Is Celebration Wallpaper Due</b>, then an <b>If</b> action set to “is true”.</li>
+            <li>Inside the If, add <b>Get Celebration Wallpaper</b>, then <b>Set Wallpaper Photo</b>, and pick Lock Screen, Home Screen or both.</li>
+          </ol>
+          <p>It checks daily but changes the wallpaper only once, after the countdown ends. The same steps are in the app under <b>Settings › Guides</b>.</p>
+        </div>
+      </details>
+      <details>
+        <summary>How do I save the wallpaper to Photos?</summary>
+        <div class="answer">
+          <p>On the home screen, scroll to <b>Wallpaper</b> and tap <b>Save Image</b>, then <b>Save Image</b> again in the share sheet. iOS asks once for permission to add it to your photo library.</p>
+        </div>
+      </details>
+    </div>
+
+    <h2 class="group">Notifications &amp; settings</h2>
+    <div class="panel faq">
+      <details>
+        <summary>I'm not getting notifications.</summary>
+        <div class="answer">
+          <p>Check that <b>Show Countdown As</b> is set to Notifications or Both in the app's Settings, and that notifications are allowed for Forevermore in the iPhone Settings app. Opening the app also refreshes the schedule.</p>
+        </div>
+      </details>
+      <details>
+        <summary>How do I change the date, title or background?</summary>
+        <div class="answer">
+          <p>Tap the <b>Customize</b> button at the top right of the home screen. Changes apply to the app, widgets and live countdown straight away.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What happens after the wedding?</summary>
+        <div class="answer">
+          <p>On the day, the countdown shows “Today”. Afterwards, it gently counts the days you've been married.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Which iPhones are supported?</summary>
+        <div class="answer">
+          <p>Any iPhone running iOS 17 or later. The Dynamic Island view appears on iPhones that have one.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Does the app collect my data?</summary>
+        <div class="answer">
+          <p>No. There's no account, no ads and no tracking, and nothing leaves your iPhone. Deleting the app removes all of its data.</p>
+        </div>
+      </details>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 Siva Vimel Rajhen</div>
+  </footer>
+</body>
+</html>
